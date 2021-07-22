@@ -7,7 +7,9 @@
 
 import UIKit
 
-final class LoginViewController: UIViewController, KeyboardStateObserverDelegate {
+final class LoginViewController: UIViewController, LoginViewProtocol, KeyboardStateObserverDelegate {
+    
+    private let interactor: LoginInteractorInput
     
     private var bottomConstraint: NSLayoutConstraint?
     private lazy var keyboardStateObserver: KeyboardStateObserver = { kso in
@@ -21,8 +23,18 @@ final class LoginViewController: UIViewController, KeyboardStateObserverDelegate
         dtv.translatesAutoresizingMaskIntoConstraints = false
         dtv.applyLoginStyle()
         dtv.isButtonEnabledRule = { lgn, pwd in !lgn.isEmpty && !pwd.isEmpty }
+        dtv.button.addTarget(self, action: #selector(loghInAction(sender:)), for: .touchUpInside)
         return dtv
     }()
+    
+    init(interactor: LoginInteractorInput) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,5 +76,22 @@ final class LoginViewController: UIViewController, KeyboardStateObserverDelegate
         case .hidden:
             bottomConstraint?.constant = 0
         }
+    }
+    
+    // MARK: Actions
+    @objc func loghInAction(sender: UIButton) {
+        interactor.logIn(username: loginView.textField1.text ?? "",
+                         password: loginView.textField2.text ?? "")
+    }
+    
+    // MARK: LoginViewProtocol
+    func renderSuccess(complition: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            complition()
+        }
+    }
+    
+    func showError(description: String) {
+        
     }
 }

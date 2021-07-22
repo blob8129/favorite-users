@@ -8,7 +8,9 @@
 import UIKit
 
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, LoginDelegate {
+    
+    var baseURL = URL(string: "http://base_url.stub")!
 
     private lazy var loginStateStorage = PersistentStorage<LoginState>(
         storageKey: "LoginStateStorageKey"
@@ -28,14 +30,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let loginState = loginStateStorage.load() ?? .loggedOut
         switch loginState {
-        case .loggedIn(token: let token):
-            break
+        case .loggedIn(let token):
+            window?.rootViewController = UsersViewController()
         case .loggedOut:
-            let veiwController = LoginViewController()
+            let veiwController = LoginAssembler().assemble(baseURL: baseURL, delegate: self)
             window?.rootViewController = veiwController
         }
-        
-        
         window?.makeKeyAndVisible()
+    }
+    
+    func didLogInWith(token: String) {
+        loginStateStorage.save(item: .loggedIn(token: token))
+        window?.rootViewController = UsersViewController()
     }
 }
