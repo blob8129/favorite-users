@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  UsersViewController.swift
 //  FavoriteUsers
 //
 //  Created by Andrey Volobuev on 21/07/2021.
@@ -7,13 +7,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class UsersViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .yellow
     }
-
-
 }
-
