@@ -15,3 +15,9 @@ extension URL {
         }
     }
 }
+
+extension String {
+    var removingISO8601Milliseconds: String {
+        "\(split(separator: ".").first ?? "")Z"
+    }
+}
