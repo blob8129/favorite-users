@@ -21,3 +21,21 @@ extension String {
         "\(split(separator: ".").first ?? "")Z"
     }
 }
+
+extension JSONDecoder {
+    static let customISODateDecoder: JSONDecoder = { dcd in
+        dcd.dateDecodingStrategy = .custom { dateDecoder in
+            let container = try dateDecoder.singleValueContainer()
+            let rawDate = try container.decode(String.self)
+            let dateFormatter = ISO8601DateFormatter()
+            guard let date = dateFormatter.date(from: rawDate.removingISO8601Milliseconds) else {
+                throw DecodingError.dataCorruptedError(
+                    in: container,
+                    debugDescription: "Cannot decode date from \(rawDate)"
+                )
+            }
+            return date
+        }
+        return dcd
+    }(JSONDecoder())
+}

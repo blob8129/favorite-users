@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, LoginDelegate {
         let loginState = loginStateStorage.load() ?? .loggedOut
         switch loginState {
         case .loggedIn(let token):
-            window?.rootViewController = UsersViewController()
+            window?.rootViewController = UsersAssembler().assemble(baseURL: baseURL, token: token)
         case .loggedOut:
             let veiwController = LoginAssembler().assemble(baseURL: baseURL, delegate: self)
             window?.rootViewController = veiwController
@@ -41,6 +41,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, LoginDelegate {
     
     func didLogInWith(token: String) {
         loginStateStorage.save(item: .loggedIn(token: token))
-        window?.rootViewController = UsersViewController()
+        window?.rootViewController = UsersAssembler().assemble(baseURL: baseURL, token: token)
     }
 }

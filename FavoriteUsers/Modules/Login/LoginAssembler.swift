@@ -8,6 +8,9 @@
 import UIKit
 
 struct NetworkServiceStub: NetworkServiceProtocol {
+    
+    var token: String?
+    
     func loadData(at url: URL, result: @escaping (Result<Data, Error>) -> Void) {
         
     }

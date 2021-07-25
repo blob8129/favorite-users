@@ -9,6 +9,7 @@ import Foundation
 
 protocol BasicNetworkService {
     func loadData(at url: URL, result: @escaping (Result<Data, Error>) -> Void)
+    var token: String? { get set }
 }
 
 protocol ResourceModifyingNetworkService {
