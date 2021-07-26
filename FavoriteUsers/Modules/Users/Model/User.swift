@@ -7,22 +7,24 @@
 
 import Foundation
 
-struct User: Decodable {
-    struct Name: Decodable {
+protocol Entity: Decodable & Hashable & Equatable {}
+
+struct User: Entity {
+    struct Name: Entity {
         let title: String
         let first: String
         let last: String
     }
-    struct Location: Decodable {
-        struct Street: Decodable {
+    struct Location: Entity {
+        struct Street: Entity {
             let number: Int
             let name: String
         }
-        struct Coordinates: Decodable {
+        struct Coordinates: Entity {
             let latitude: String
             let longitude: String
         }
-        struct Timezone: Decodable {
+        struct Timezone: Entity {
             let offset: String
             let description: String
         }
@@ -54,11 +56,11 @@ struct User: Decodable {
             self.timezone = try container.decode(Timezone.self, forKey: .timezone)
         }
     }
-    struct DateOfBirth: Decodable {
+    struct DateOfBirth: Entity {
         let date: Date
         let age: Int
     }
-    struct Picture: Decodable {
+    struct Picture: Entity {
         let large: URL
         let medium: URL
         let thumbnail: URL
@@ -80,5 +82,25 @@ struct UsersContainer: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case users = "data"
+    }
+}
+
+struct UserContext {
+    let imageData: [URL: Data]
+    let isFavorite: Bool
+}
+
+extension User: Convertible {
+    typealias ToType = UserViewModel
+    typealias ContextType = UserContext
+    
+    func convert(using context: UserContext) -> UserViewModel {
+        UserViewModel(fullName: "\(name.title) \(name.first) \(name.last)",
+                      email: email,
+                      phone: phone,
+                      city: location.city,
+                      imageData: context.imageData[picture.medium],
+                      isFavorite: context.isFavorite
+        )
     }
 }

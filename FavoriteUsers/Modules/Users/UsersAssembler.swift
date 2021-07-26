@@ -14,7 +14,9 @@ final class UsersAssembler {
         let repository = UsersRepository(networkService: networkService,
                                          decoder: JSONDecoder.customISODateDecoder)
         
-        let interactor = UsersInteractor(baseURL: baseURL, usersRepository: repository)
+        let interactor = UsersInteractor(baseURL: baseURL,
+                                         usersRepository: repository,
+                                         imagesService: ImagesService())
         let view = UsersViewController(interactor: interactor)
         interactor.view = view
         return view

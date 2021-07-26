@@ -7,36 +7,6 @@
 
 import Foundation
 
-enum NetworkingError: Error {
-    case unauthorized
-}
-
-protocol UsersInteractorInput: AnyObject {
-    func loadUsers()
-}
-
-protocol UsersView: AnyObject {
-    func render(_ users: [User])
-    func showError(description: String)
-}
-
-struct UsersNetworkServiceStub: NetworkServiceProtocol {
-    
-    var token: String?
-    
-    func loadData(at url: URL, result: @escaping (Result<Data, Error>) -> Void) {
-        guard let token = token, token == "886:f6759e94-bf49-4d53-afe8-8d3fc93efdf0" else {
-            result(.failure(NetworkingError.unauthorized))
-            return
-        }
-        result(.success(usersData))
-    }
-    
-    func executeRequest(url: URL, httpMethod: HTTPMethod, result: @escaping (Result<Data, Error>) -> Void) {
-        
-    }
-}
-
 struct UsersRepository: RepositoryProtocol {
     let networkService: NetworkServiceProtocol
     let decoder: JSONDecoder
@@ -50,10 +20,16 @@ final class UsersInteractor<R: RepositoryProtocol>: UsersInteractorInput where R
   
     private let baseURL: URL
     private let usersRepository: R
+    private let imagesService: ImagesService
     
-    init(baseURL: URL, usersRepository: R) {
+    private var users = [User]()
+    private var imageDataByURL = [URL: Data]()
+    
+    
+    init(baseURL: URL, usersRepository: R, imagesService: ImagesService) {
         self.baseURL = baseURL
         self.usersRepository = usersRepository
+        self.imagesService = imagesService
     }
     
     // MARK: UsersInteractorInput
@@ -62,10 +38,30 @@ final class UsersInteractor<R: RepositoryProtocol>: UsersInteractorInput where R
         usersRepository.fetch(at: url) { result in
             switch result {
             case .success(let usersContainer):
-                self.view?.render(usersContainer.users)
+                self.users = usersContainer.users
+                self.composeAndRender()
             case .failure(let error):
                 self.view?.showError(description: error.localizedDescription)
             }
         }
+    }
+    
+    func willDisplayItem(at index: Int) {
+        let url = users[index].picture.medium
+        imagesService.fetchImage(at: url) { result in
+            switch result {
+            case .success((let url, let data)):
+                self.imageDataByURL[url] = data
+                self.composeAndRender()
+            case .failure:
+                break
+            }
+        }
+    }
+    
+    private func composeAndRender() {
+        let context = UserContext(imageData: self.imageDataByURL, isFavorite: false)
+        let veiwModels = self.users.convert(using: context)
+        self.view?.render(veiwModels)
     }
 }

@@ -12,6 +12,12 @@
 		CE36C97126ADBF5B00382DEB /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C97026ADBF5B00382DEB /* UserTests.swift */; };
 		CE36C97426ADCED000382DEB /* UsersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C97326ADCED000382DEB /* UsersInteractor.swift */; };
 		CE36C97626ADD0DE00382DEB /* UsersAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C97526ADD0DE00382DEB /* UsersAssembler.swift */; };
+		CE36C97826AF0D5E00382DEB /* ImagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C97726AF0D5E00382DEB /* ImagesService.swift */; };
+		CE36C97A26AF0EC500382DEB /* UsersProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C97926AF0EC500382DEB /* UsersProtocols.swift */; };
+		CE36C97D26AF0F9100382DEB /* UsersNetworkServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C97C26AF0F9100382DEB /* UsersNetworkServiceStub.swift */; };
+		CE36C97F26AF101100382DEB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C97E26AF101100382DEB /* Protocols.swift */; };
+		CE36C98126AF104900382DEB /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C98026AF104800382DEB /* UserCell.swift */; };
+		CE36C98326AF107900382DEB /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C98226AF107900382DEB /* UserViewModel.swift */; };
 		CE790A7726A866FB00A78E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE790A7626A866FB00A78E4E /* AppDelegate.swift */; };
 		CE790A7926A866FB00A78E4E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE790A7826A866FB00A78E4E /* SceneDelegate.swift */; };
 		CE790A7B26A866FB00A78E4E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE790A7A26A866FB00A78E4E /* LoginViewController.swift */; };
@@ -58,6 +64,12 @@
 		CE36C97026ADBF5B00382DEB /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		CE36C97326ADCED000382DEB /* UsersInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInteractor.swift; sourceTree = "<group>"; };
 		CE36C97526ADD0DE00382DEB /* UsersAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersAssembler.swift; sourceTree = "<group>"; };
+		CE36C97726AF0D5E00382DEB /* ImagesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesService.swift; sourceTree = "<group>"; };
+		CE36C97926AF0EC500382DEB /* UsersProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProtocols.swift; sourceTree = "<group>"; };
+		CE36C97C26AF0F9100382DEB /* UsersNetworkServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersNetworkServiceStub.swift; sourceTree = "<group>"; };
+		CE36C97E26AF101100382DEB /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		CE36C98026AF104800382DEB /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		CE36C98226AF107900382DEB /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		CE790A7326A866FB00A78E4E /* FavoriteUsers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavoriteUsers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE790A7626A866FB00A78E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE790A7826A866FB00A78E4E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,8 +137,19 @@
 			isa = PBXGroup;
 			children = (
 				CE36C97326ADCED000382DEB /* UsersInteractor.swift */,
+				CE36C97C26AF0F9100382DEB /* UsersNetworkServiceStub.swift */,
 			);
 			path = Interactor;
+			sourceTree = "<group>";
+		};
+		CE36C97B26AF0F6400382DEB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE790AAC26A86FC400A78E4E /* UsersViewController.swift */,
+				CE36C98026AF104800382DEB /* UserCell.swift */,
+				CE36C98226AF107900382DEB /* UserViewModel.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		CE790A6A26A866FB00A78E4E = {
@@ -155,8 +178,9 @@
 				CE790AAA26A86F7000A78E4E /* Common */,
 				CE790AA926A86ED800A78E4E /* Application */,
 				CE790AA626A86EBA00A78E4E /* Modules */,
-				CE790A8126A866FD00A78E4E /* LaunchScreen.storyboard */,
 				CE790A8426A866FD00A78E4E /* Info.plist */,
+				CE790A7F26A866FD00A78E4E /* Assets.xcassets */,
+				CE790A8126A866FD00A78E4E /* LaunchScreen.storyboard */,
 			);
 			path = FavoriteUsers;
 			sourceTree = "<group>";
@@ -205,10 +229,11 @@
 		CE790AA826A86ECE00A78E4E /* Users */ = {
 			isa = PBXGroup;
 			children = (
+				CE36C97926AF0EC500382DEB /* UsersProtocols.swift */,
 				CE36C97526ADD0DE00382DEB /* UsersAssembler.swift */,
-				CE36C97226ADCD8400382DEB /* Interactor */,
 				CE36C96D26ADBF2C00382DEB /* Model */,
-				CE790AAC26A86FC400A78E4E /* UsersViewController.swift */,
+				CE36C97226ADCD8400382DEB /* Interactor */,
+				CE36C97B26AF0F6400382DEB /* View */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -229,6 +254,7 @@
 				CE790ABA26A9AFAF00A78E4E /* Views */,
 				CE790AB326A96FFB00A78E4E /* Services */,
 				CE790AAE26A96AE100A78E4E /* Model */,
+				CE36C97E26AF101100382DEB /* Protocols.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -246,8 +272,8 @@
 			children = (
 				CE790AB826A9850F00A78E4E /* KeyboardStateObserver.swift */,
 				CE790AB426A9700900A78E4E /* PersistentStorage.swift */,
-				CE790A7F26A866FD00A78E4E /* Assets.xcassets */,
 				CE790AC026A9B85B00A78E4E /* NetworkingService.swift */,
+				CE36C97726AF0D5E00382DEB /* ImagesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -417,22 +443,28 @@
 			files = (
 				CE36C96C26ADBDA500382DEB /* UsersData.swift in Sources */,
 				CE790AB526A9700900A78E4E /* PersistentStorage.swift in Sources */,
+				CE36C97D26AF0F9100382DEB /* UsersNetworkServiceStub.swift in Sources */,
 				CE790ACD26A9CAFA00A78E4E /* LoginProtocols.swift in Sources */,
 				CE790ACB26A9CADC00A78E4E /* TokenContainer.swift in Sources */,
 				CE790AC326A9BA0F00A78E4E /* LoginInteractor.swift in Sources */,
 				CE790AC526A9C73A00A78E4E /* LoginAssembler.swift in Sources */,
 				CE790ABC26A9AFBE00A78E4E /* TextFieldWithPadding.swift in Sources */,
 				CE790ABF26A9AFF800A78E4E /* DoubleTextFieldView.swift in Sources */,
+				CE36C98326AF107900382DEB /* UserViewModel.swift in Sources */,
+				CE36C97A26AF0EC500382DEB /* UsersProtocols.swift in Sources */,
 				CE790AB026A96B0100A78E4E /* LoginState.swift in Sources */,
 				CE790AB926A9850F00A78E4E /* KeyboardStateObserver.swift in Sources */,
 				CE790AC126A9B85B00A78E4E /* NetworkingService.swift in Sources */,
+				CE36C98126AF104900382DEB /* UserCell.swift in Sources */,
 				CE790A7B26A866FB00A78E4E /* LoginViewController.swift in Sources */,
 				CE36C97426ADCED000382DEB /* UsersInteractor.swift in Sources */,
+				CE36C97F26AF101100382DEB /* Protocols.swift in Sources */,
 				CE790ACF26A9CF1800A78E4E /* Extensions.swift in Sources */,
 				CE790AC826A9C90B00A78E4E /* TokenContainerRepository.swift in Sources */,
 				CE36C97626ADD0DE00382DEB /* UsersAssembler.swift in Sources */,
 				CE36C96F26ADBF3D00382DEB /* User.swift in Sources */,
 				CE790AAD26A86FC400A78E4E /* UsersViewController.swift in Sources */,
+				CE36C97826AF0D5E00382DEB /* ImagesService.swift in Sources */,
 				CE790A7726A866FB00A78E4E /* AppDelegate.swift in Sources */,
 				CE790A7926A866FB00A78E4E /* SceneDelegate.swift in Sources */,
 			);
