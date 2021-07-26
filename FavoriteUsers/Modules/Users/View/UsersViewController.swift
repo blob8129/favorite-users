@@ -47,6 +47,7 @@ final class UsersViewController: UIViewController, UICollectionViewDelegate, Use
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Users"
         addAllSubviews()
         interactor.loadUsers()
     }
@@ -93,5 +94,10 @@ final class UsersViewController: UIViewController, UICollectionViewDelegate, Use
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         interactor.willDisplayItem(at: indexPath.row)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        interactor.changeIsFavoriteState(at: indexPath.row)
     }
 }

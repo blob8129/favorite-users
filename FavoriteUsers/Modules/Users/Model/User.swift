@@ -9,7 +9,7 @@ import Foundation
 
 protocol Entity: Decodable & Hashable & Equatable {}
 
-struct User: Entity {
+struct User: Identifiable, Entity {
     struct Name: Entity {
         let title: String
         let first: String
@@ -39,7 +39,7 @@ struct User: Entity {
         enum CodingKeys: CodingKey {
             case country, state, city, street, postcode, coordinates, timezone
         }
-        
+    
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.country = try container.decode(String.self, forKey: .country)
@@ -65,12 +65,15 @@ struct User: Entity {
         let medium: URL
         let thumbnail: URL
     }
+    
     let name: Name
     let location: Location
     let email: String
     let dateOfBirth: DateOfBirth
     let phone: String
     let picture: Picture
+    
+    var id: String { phone }
     
     enum CodingKeys: String, CodingKey {
         case name, location, email, dateOfBirth = "dob", phone, picture
@@ -87,7 +90,7 @@ struct UsersContainer: Decodable {
 
 struct UserContext {
     let imageData: [URL: Data]
-    let isFavorite: Bool
+    let isFavorite: [String: Bool]
 }
 
 extension User: Convertible {
@@ -100,7 +103,7 @@ extension User: Convertible {
                       phone: phone,
                       city: location.city,
                       imageData: context.imageData[picture.medium],
-                      isFavorite: context.isFavorite
+                      isFavorite: context.isFavorite[id, default: false]
         )
     }
 }

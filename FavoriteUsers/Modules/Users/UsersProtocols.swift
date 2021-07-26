@@ -10,6 +10,7 @@ import Foundation
 protocol UsersInteractorInput: AnyObject {
     func loadUsers()
     func willDisplayItem(at index: Int)
+    func changeIsFavoriteState(at index: Int)
 }
 
 protocol UsersView: AnyObject {

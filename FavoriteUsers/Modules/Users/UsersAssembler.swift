@@ -14,11 +14,15 @@ final class UsersAssembler {
         let repository = UsersRepository(networkService: networkService,
                                          decoder: JSONDecoder.customISODateDecoder)
         
+        let isFavoriteStateStorage = PersistentStorage<[String: Bool]>(storageKey: "IsFavoriteStateStorageKey")
         let interactor = UsersInteractor(baseURL: baseURL,
                                          usersRepository: repository,
-                                         imagesService: ImagesService())
+                                         imagesService: ImagesService(),
+                                         isFavoriteStateStorage: isFavoriteStateStorage)
         let view = UsersViewController(interactor: interactor)
         interactor.view = view
-        return view
+        let navigationController = UINavigationController(rootViewController: view)
+        navigationController.navigationBar.prefersLargeTitles = true
+        return navigationController
     }
 }

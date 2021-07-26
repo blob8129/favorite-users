@@ -16,6 +16,11 @@ final class UserCell: UICollectionViewCell {
         return imv
     }(UIImageView())
     
+    lazy var isFavoriteImageView: UIImageView = { imv in
+        imv.translatesAutoresizingMaskIntoConstraints = false
+        return imv
+    }(UIImageView())
+    
     lazy var titleLabel = UILabel()
     lazy var detailsLabel1 = UILabel()
     lazy var detailsLabel2 = UILabel()
@@ -45,6 +50,7 @@ final class UserCell: UICollectionViewCell {
     
     func commonInit() {
         contentView.addSubview(imageView)
+        contentView.addSubview(isFavoriteImageView)
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -52,6 +58,9 @@ final class UserCell: UICollectionViewCell {
             imageView.widthAnchor.constraint(equalToConstant: 88),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
             
+            isFavoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            contentView.rightAnchor.constraint(equalTo: isFavoriteImageView.rightAnchor, constant: 16),
+    
             stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             contentView.rightAnchor.constraint(equalTo: stackView.rightAnchor, constant: 16),
@@ -63,9 +72,12 @@ final class UserCell: UICollectionViewCell {
         titleLabel.font = .preferredFont(forTextStyle: .title3)
         [detailsLabel1, detailsLabel2, detailsLabel3].forEach {
             $0.font = .preferredFont(forTextStyle: .body)
+            $0.textColor = .secondaryLabel
         }
         imageView.layer.cornerRadius = 44
         imageView.clipsToBounds = true
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.systemGray6.cgColor
     }
     
     func configure(using viewModel: UserViewModel) {
@@ -77,5 +89,8 @@ final class UserCell: UICollectionViewCell {
         imageView.image = viewModel
             .imageData
             .flatMap { UIImage(data: $0) } ?? UIImage(systemName: "person")
+        
+        isFavoriteImageView.image = viewModel.isFavorite ?
+            UIImage(systemName: "star.fill") : UIImage(systemName: "star")
     }
 }

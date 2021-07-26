@@ -15,21 +15,33 @@ struct UsersRepository: RepositoryProtocol {
 }
 
 final class UsersInteractor<R: RepositoryProtocol>: UsersInteractorInput where R.Entity == UsersContainer {
-   
+
     weak var view: UsersView?
   
     private let baseURL: URL
     private let usersRepository: R
-    private let imagesService: ImagesService
+    private let imagesService: ImagesServiceProtocol
+    private let isFavoriteStateStorage: PersistentStorage<[String: Bool]>
     
     private var users = [User]()
     private var imageDataByURL = [URL: Data]()
+    private var isFavoriteStates = [String: Bool]()
     
     
-    init(baseURL: URL, usersRepository: R, imagesService: ImagesService) {
+    init(baseURL: URL,
+         usersRepository: R,
+         imagesService: ImagesServiceProtocol,
+         isFavoriteStateStorage: PersistentStorage<[String: Bool]>) {
         self.baseURL = baseURL
         self.usersRepository = usersRepository
         self.imagesService = imagesService
+        self.isFavoriteStateStorage = isFavoriteStateStorage
+    }
+
+    private func composeAndRender() {
+        let context = UserContext(imageData: imageDataByURL, isFavorite: isFavoriteStates)
+        let veiwModels = users.convert(using: context)
+        self.view?.render(veiwModels)
     }
     
     // MARK: UsersInteractorInput
@@ -39,6 +51,7 @@ final class UsersInteractor<R: RepositoryProtocol>: UsersInteractorInput where R
             switch result {
             case .success(let usersContainer):
                 self.users = usersContainer.users
+                self.isFavoriteStates = self.isFavoriteStateStorage.load() ?? [:]
                 self.composeAndRender()
             case .failure(let error):
                 self.view?.showError(description: error.localizedDescription)
@@ -59,9 +72,12 @@ final class UsersInteractor<R: RepositoryProtocol>: UsersInteractorInput where R
         }
     }
     
-    private func composeAndRender() {
-        let context = UserContext(imageData: self.imageDataByURL, isFavorite: false)
-        let veiwModels = self.users.convert(using: context)
-        self.view?.render(veiwModels)
+    func changeIsFavoriteState(at index: Int) {
+        let user = users[index]
+        var isFavorite = isFavoriteStates[user.phone, default: false]
+        isFavorite.toggle()
+        isFavoriteStates[user.id] = isFavorite
+        composeAndRender()
+        isFavoriteStateStorage.save(item: isFavoriteStates)
     }
 }

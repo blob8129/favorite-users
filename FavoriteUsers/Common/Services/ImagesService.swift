@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class ImagesService {
+protocol ImagesServiceProtocol {
+    func fetchImage(at url: URL, result: @escaping (Result<(URL, Data), Error>) -> Void)
+}
+
+final class ImagesService: ImagesServiceProtocol {
     enum ImagesServiceError: Error {
         case unknown
     }
