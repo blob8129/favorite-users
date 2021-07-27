@@ -41,7 +41,7 @@ final class UsersInteractor<R: RepositoryProtocol>: UsersInteractorInput where R
     private func composeAndRender() {
         let context = UserContext(imageData: imageDataByURL, isFavorite: isFavoriteStates)
         let veiwModels = users.convert(using: context)
-        self.view?.render(veiwModels)
+        view?.render(veiwModels)
     }
     
     // MARK: UsersInteractorInput

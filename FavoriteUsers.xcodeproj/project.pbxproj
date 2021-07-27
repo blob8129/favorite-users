@@ -18,6 +18,7 @@
 		CE36C97F26AF101100382DEB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C97E26AF101100382DEB /* Protocols.swift */; };
 		CE36C98126AF104900382DEB /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C98026AF104800382DEB /* UserCell.swift */; };
 		CE36C98326AF107900382DEB /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C98226AF107900382DEB /* UserViewModel.swift */; };
+		CE36C98526B00FF600382DEB /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36C98426B00FF600382DEB /* LoginInteractorTests.swift */; };
 		CE790A7726A866FB00A78E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE790A7626A866FB00A78E4E /* AppDelegate.swift */; };
 		CE790A7926A866FB00A78E4E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE790A7826A866FB00A78E4E /* SceneDelegate.swift */; };
 		CE790A7B26A866FB00A78E4E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE790A7A26A866FB00A78E4E /* LoginViewController.swift */; };
@@ -70,6 +71,7 @@
 		CE36C97E26AF101100382DEB /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		CE36C98026AF104800382DEB /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		CE36C98226AF107900382DEB /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		CE36C98426B00FF600382DEB /* LoginInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		CE790A7326A866FB00A78E4E /* FavoriteUsers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavoriteUsers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE790A7626A866FB00A78E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE790A7826A866FB00A78E4E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		CE790A8C26A866FD00A78E4E /* FavoriteUsersTests */ = {
 			isa = PBXGroup;
 			children = (
+				CE36C98426B00FF600382DEB /* LoginInteractorTests.swift */,
 				CE790A8D26A866FD00A78E4E /* FavoriteUsersTests.swift */,
 				CE790AB126A96DFF00A78E4E /* LoginStateTests.swift */,
 				CE36C97026ADBF5B00382DEB /* UserTests.swift */,
@@ -474,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE36C98526B00FF600382DEB /* LoginInteractorTests.swift in Sources */,
 				CE36C97126ADBF5B00382DEB /* UserTests.swift in Sources */,
 				CE790A8E26A866FD00A78E4E /* FavoriteUsersTests.swift in Sources */,
 				CE790AB226A96DFF00A78E4E /* LoginStateTests.swift in Sources */,

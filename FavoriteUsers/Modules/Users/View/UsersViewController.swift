@@ -96,8 +96,7 @@ final class UsersViewController: UIViewController, UICollectionViewDelegate, Use
         interactor.willDisplayItem(at: indexPath.row)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         interactor.changeIsFavoriteState(at: indexPath.row)
     }
 }
